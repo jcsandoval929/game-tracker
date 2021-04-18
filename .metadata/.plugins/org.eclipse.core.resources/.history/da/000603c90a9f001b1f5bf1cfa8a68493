@@ -1,0 +1,45 @@
+package com.sandoval.gametracker;
+
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.sandoval.gametracker.model.Game;
+import com.sandoval.gametracker.service.GameService;
+
+@RestController
+@RequestMapping("/game")
+public class GameResource {
+	private final GameService gameService;
+
+	public GameResource(GameService gameService) {
+		this.gameService = gameService;
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<Game>> getAllGames() {
+		List<Game> games = gameService.findAllGames();
+		return new ResponseEntity<>(games, HttpStatus.OK);
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<Game>> getAllLibraryGames() {
+		List<Game> libraryGames = gameService.findAllLibraryGames();
+		return new ResponseEntity<>(libraryGames, HttpStatus.OK);
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<Game>> getAllWishlistGames() {
+		List<Game> wishlistGames = gameService.findAllWishlistGames();
+		return new ResponseEntity<>(wishlistGames, HttpStatus.OK);
+	}
+	
+	@GetMapping("/find/{id}")
+	public ResponseEntity<Game> getGameById(@PathVariable("id") Long id) {
+		Game game = gameService.findGameById(id);
+		return new ResponseEntity<>(game, HttpStatus.OK);
+	}
+
+}

@@ -1,0 +1,10 @@
+package com.sandoval.gametracker.repo;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.sandoval.gametracker.model.Game;
+
+public interface EmployeeRepo extends JpaRepository<Game> {
+	
+
+}

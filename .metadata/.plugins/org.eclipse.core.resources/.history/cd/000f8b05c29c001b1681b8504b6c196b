@@ -1,0 +1,19 @@
+package com.sandoval.gametracker.model;
+
+import java.io.Serializable;
+
+import javax.persistence.*;
+
+@Entity
+public class Game implements Serializable {
+	@Id
+	private Long id;
+	private String title;
+	private String description;
+	private String genre;
+	private String developer;
+	private String imageUrl;
+	
+	
+
+}

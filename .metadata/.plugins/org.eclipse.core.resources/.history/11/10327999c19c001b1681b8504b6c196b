@@ -1,0 +1,11 @@
+package com.sandoval.gametracker.model;
+
+public class Game implements Serializable {
+	private Long id;
+	private String title;
+	private String description;
+	private String genre;
+	private String developer;
+	private String imageUrl;
+
+}

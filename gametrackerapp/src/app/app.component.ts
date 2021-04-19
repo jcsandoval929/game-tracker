@@ -15,11 +15,33 @@ export class AppComponent implements OnInit {
   constructor(private gameService: GameService) {}
 
   ngOnInit() {
-    this.getGames();
+    this.getLibraryGames();
   }
 
   public getGames(): void {
     this.gameService.getGames().subscribe(
+      (response: Game[]) => {
+        this.games = response;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
+  public getLibraryGames(): void {
+    this.gameService.getLibraryGames().subscribe(
+      (response: Game[]) => {
+        this.games = response;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
+  public getWishlistGames(): void {
+    this.gameService.getWishlistGames().subscribe(
       (response: Game[]) => {
         this.games = response;
       },

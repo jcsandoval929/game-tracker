@@ -1,5 +1,0 @@
-package com.sandoval.gametracker.repo;
-
-public interface GameRepo {
-
-}

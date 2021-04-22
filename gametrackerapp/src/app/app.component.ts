@@ -10,12 +10,13 @@ import { GameService } from './game.service';
 })
 export class AppComponent implements OnInit {
   title = 'gametrackerapp';
+  year: number = new Date().getFullYear();
   public games: Game[] = [];
 
   constructor(private gameService: GameService) {}
 
   ngOnInit() {
-    this.getLibraryGames();
+    this.getGames();
   }
 
   public getGames(): void {

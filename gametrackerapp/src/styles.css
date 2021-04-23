@@ -4,6 +4,10 @@ body {
   padding-top: 25px;
 }
 
+a {
+  cursor: pointer;
+}
+
 img {
   height: 250px;
   width: 100%;

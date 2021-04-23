@@ -23,7 +23,23 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav me-auto mb-2 mb-md-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#"
+              <a
+                class="nav-link active"
+                aria-current="page"
+                (click)="getLibraryGames()"
+                >Library</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                (click)="getWishlistGames()"
+                >Wishlist</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" (click)="onOpenModal(null, 'add')"
                 >Add Game</a
               >
             </li>
@@ -47,11 +63,11 @@
       <div class="row row-cols-1 row-cols-lg-3 row-cols-md-2 g-5">
         <div *ngFor="let game of games" class="col">
           <div class="card h-100" style="width: auto">
-            <img src="{{ game.imageUrl }}" class="card-img-top" alt="..." />
+            <img src="{{ game?.imageUrl }}" class="card-img-top" alt="..." />
             <div class="card-body">
-              <h5 class="card-title">{{ game.title }}</h5>
+              <h5 class="card-title">{{ game?.title }}</h5>
               <p class="card-text">
-                {{ game.description }}
+                {{ game?.description }}
               </p>
               <a href="#" class="btn btn-primary">Details</a>
             </div>
@@ -66,6 +82,152 @@
         </div>
       </div>
     </div>
+
+    <!-- Add Game Modal -->
+    <div
+      class="modal fade"
+      id="addGameModal"
+      tabindex="-1"
+      aria-labelledby="addGameModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addGameModalLabel">Add Game</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form #addForm="ngForm" (ngSubmit)="onAddGame(addForm)">
+              <div class="form-group mb-3">
+                <label for="title">Title</label>
+                <input
+                  type="text"
+                  ngModel
+                  name="title"
+                  class="form-control"
+                  id="title"
+                  placeholder="Title"
+                  required
+                />
+              </div>
+              <div class="form-group mb-3">
+                <label for="description">Description</label>
+                <textarea
+                  class="form-control"
+                  ngModel
+                  name="description"
+                  maxlength="1000"
+                  id="description"
+                  rows="3"
+                  placeholder="Description"
+                  required
+                ></textarea>
+                <div id="descriptionHelp" class="form-text">
+                  Limit - 1000 characters
+                </div>
+              </div>
+              <div class="form-group mb-3">
+                <label for="genre">Genre</label>
+                <input
+                  type="text"
+                  ngModel
+                  name="genre"
+                  class="form-control"
+                  id="genre"
+                  placeholder="Genre"
+                  required
+                />
+              </div>
+              <div class="form-group mb-3">
+                <label for="developer">Developer</label>
+                <input
+                  type="text"
+                  ngModel
+                  name="developer"
+                  class="form-control"
+                  id="developer"
+                  placeholder="Developer"
+                  required
+                />
+              </div>
+              <div class="form-group mb-3">
+                <label for="imageUrl">Image URL</label>
+                <input
+                  type="text"
+                  ngModel
+                  name="imageUrl"
+                  class="form-control"
+                  id="imageUrl"
+                  placeholder="Image URL"
+                  required
+                />
+              </div>
+              <div class="form-check mb-3">
+                <input
+                  checked
+                  type="radio"
+                  ngModel
+                  name="wanted"
+                  value="false"
+                  class="form-check-input"
+                  id="wanted1"
+                  required
+                />
+                <label class="form-check-label" for="wanted1">Library</label>
+              </div>
+              <div class="form-check mb-3">
+                <input
+                  type="radio"
+                  ngModel
+                  name="wanted"
+                  value="true"
+                  class="form-check-input"
+                  id="wanted2"
+                />
+                <label class="form-check-label" for="wanted2">Wishlist</label>
+              </div>
+              <div class="form-check mb-3">
+                <input
+                  type="checkbox"
+                  ngModel
+                  name="completed"
+                  value="true"
+                  class="form-check-input"
+                  id="completed"
+                />
+                <label class="form-check-label" for="completed"
+                  >Completed</label
+                >
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  id="add-game-form"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button
+                  [disabled]="addForm.invalid"
+                  type="submit"
+                  class="btn btn-primary"
+                >
+                  Save changes
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Page footer -->
     <footer class="footer mt-auto text-center py-3 bg-light">
       <div class="container">

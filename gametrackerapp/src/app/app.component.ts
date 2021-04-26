@@ -10,9 +10,11 @@ import { GameService } from './game.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  title = 'gametrackerapp';
   year: number = new Date().getFullYear();
   public games: Game[] = [];
+  public viewGame!: any;
+  public editGame!: any;
+  public deleteGame!: any;
 
   constructor(private gameService: GameService) {}
 
@@ -70,6 +72,39 @@ export class AppComponent implements OnInit {
     );
   }
 
+  public onUpdateGame(game: Game): void {
+    this.gameService.updateGame(game).subscribe(
+      (response: Game) => {
+        console.log(response);
+        this.viewGame = response;
+        if (response.wanted === true) {
+          this.getWishlistGames();
+        } else {
+          this.getLibraryGames();
+        }
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
+  public onDeleteGame(gameId: number): void {
+    this.gameService.deleteGame(gameId).subscribe(
+      (response: void) => {
+        console.log(response);
+        if (this.deleteGame.wanted === true) {
+          this.getWishlistGames();
+        } else {
+          this.getLibraryGames();
+        }
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
   public onOpenModal(game: Game | null, mode: String): void {
     const container = document.getElementById('main-container');
     const button = document.createElement('button');
@@ -77,8 +112,20 @@ export class AppComponent implements OnInit {
     button.style.display = 'none';
     button.setAttribute('data-bs-toggle', 'modal');
 
+    if (mode === 'view') {
+      this.viewGame = game;
+      button.setAttribute('data-bs-target', '#viewGameModal');
+    }
     if (mode === 'add') {
       button.setAttribute('data-bs-target', '#addGameModal');
+    }
+    if (mode === 'edit') {
+      this.editGame = game;
+      button.setAttribute('data-bs-target', '#updateGameModal');
+    }
+    if (mode === 'delete') {
+      this.deleteGame = game;
+      button.setAttribute('data-bs-target', '#deleteGameModal');
     }
 
     container?.appendChild(button);

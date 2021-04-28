@@ -11,6 +11,7 @@ import { GameService } from './game.service';
 })
 export class AppComponent implements OnInit {
   year: number = new Date().getFullYear();
+  public searchText = '';
   public games: Game[] = [];
   public viewGame!: any;
   public editGame!: any;
@@ -65,9 +66,11 @@ export class AppComponent implements OnInit {
         } else {
           this.getLibraryGames();
         }
+        addForm.reset();
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
+        addForm.reset();
       }
     );
   }

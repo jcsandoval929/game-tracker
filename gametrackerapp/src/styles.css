@@ -34,3 +34,7 @@ img {
   width: 35px;
   background-color: transparent;
 }
+
+.dropdown {
+  margin-right: 20px;
+}

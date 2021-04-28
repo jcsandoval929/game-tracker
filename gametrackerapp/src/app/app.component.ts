@@ -12,6 +12,7 @@ import { GameService } from './game.service';
 export class AppComponent implements OnInit {
   year: number = new Date().getFullYear();
   public searchText = '';
+  public sortOption = 'title';
   public games: Game[] = [];
   public viewGame!: any;
   public editGame!: any;
@@ -38,6 +39,7 @@ export class AppComponent implements OnInit {
     this.gameService.getLibraryGames().subscribe(
       (response: Game[]) => {
         this.games = response;
+        window.scroll(0, 0);
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -49,6 +51,7 @@ export class AppComponent implements OnInit {
     this.gameService.getWishlistGames().subscribe(
       (response: Game[]) => {
         this.games = response;
+        window.scroll(0, 0);
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -133,5 +136,10 @@ export class AppComponent implements OnInit {
 
     container?.appendChild(button);
     button.click();
+  }
+
+  public sortList(field: string): void {
+    this.sortOption = field;
+    window.scroll(0, 0);
   }
 }
